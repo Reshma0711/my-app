@@ -6,17 +6,19 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   // Use TanStack Query to check authentication status dynamically
-  const { data: isAuthenticated } = useQuery({
+  const { data: isAuthenticated, isLoading } = useQuery({
     queryKey: ["authStatus"],
-    queryFn: () => !!localStorage.getItem("token"),
-    initialData: false,
+    queryFn: () => (localStorage.getItem("token") ? true : false),
+    // initialData: false,
   });
-
+  console.log("issssssssssssssssssssssssssss", isAuthenticated);
   const handleLogout = () => {
     localStorage.removeItem("token");
     queryClient.setQueryData(["authStatus"], false); // Manually update state
     navigate("/login");
   };
+
+  console.log("loadinggggggggggggg", isLoading);
 
   return (
     <nav className="bg-gray-900 p-4 text-white flex justify-between">
@@ -41,6 +43,9 @@ const NavBar = () => {
             <Link to="/gallery" className="ml-4">
               Gallery
             </Link>
+            {/* <Link to="/form" className="ml-4">
+             Form
+            </Link> */}
             <button
               onClick={handleLogout}
               className="ml-4 bg-red-500 px-3 py-1 rounded"

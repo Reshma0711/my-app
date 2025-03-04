@@ -3,15 +3,17 @@ import { useMutation } from "@tanstack/react-query";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { api } from "@/utils/axios";
+import { useForm } from "react-hook-form";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    role: "",
-  });
+ 
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
   
   const mutation = useMutation({
     mutationFn: async (data) => {
@@ -19,8 +21,7 @@ const Signup = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      alert(data.message);
-      setFormData({ username: "", email: "", password: "", role: "user" });
+      alert(data.message);  
       navigate("/login"); // Redirect to login page
     },
     onError: (error) => {
@@ -32,72 +33,78 @@ const Signup = () => {
     },
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    mutation.mutate(formData);
+  const onSubmit = (data) => {
+   console.log("Responseeeee.....",data)
+    mutation.mutate(data);
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded">
-      <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
+     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded">
+     <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-          className="w-full p-2 border rounded"
-        />
-        
-        <select
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        >
-          <option value="user">User</option>
-          <option value="manager">Manager</option>
-          <option value="admin">Admin</option>
-        </select>
+     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+       {/* Username Field */}
+       <input
+         type="text"
+         placeholder="Username"
+         {...register("username", { required: "Username is required" })}
+         className="w-full p-2 border rounded"
+       />
+       {errors.username && <p className="text-red-500">{errors.username.message}</p>}
 
-        <button
-          type="submit"
-          className="w-full bg-gray-900 text-white p-2 rounded hover:bg-green-600"
-          disabled={mutation.isLoading}
-        >
-          {mutation.isLoading ? "Signing Up..." : "Sign Up"}
-        </button>
-      </form>
+       {/* Email Field */}
+       <input
+         type="email"
+         placeholder="Email"
+         {...register("email", {
+           required: "Email is required",
+           pattern: {
+             value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+             message: "Invalid email format",
+           },
+         })}
+         className="w-full p-2 border rounded"
+       />
+       {errors.email && <p className="text-red-500">{errors.email.message}</p>}
 
-      <p className="mt-4 text-center">
-        Already have an account? <span className="text-blue-500 font-bold underline cursor-pointer hover:text-blue-700" onClick={() => navigate("/login")}>Login</span>
-      </p>
-    </div>
+       {/* Password Field */}
+       <input
+         type="password"
+         placeholder="Password"
+         {...register("password", { required: "Password is required", minLength: { value: 5, message: "Must be at least 5 characters" } })}
+         className="w-full p-2 border rounded"
+       />
+       {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+
+       {/* Role Selection */}
+       <select {...register("role")} className="w-full p-2 border rounded">
+         <option value="user">User</option>
+         <option value="manager">Manager</option>
+         <option value="admin">Admin</option>
+       </select>
+
+       {/* Submit Button */}
+       <button
+         type="submit"
+         className="w-full bg-gray-900 text-white p-2 rounded hover:bg-green-600"
+         disabled={mutation.isLoading || isSubmitting}
+       >
+         {mutation.isLoading || isSubmitting ? "Signing Up..." : "Sign Up"}
+       </button>
+     </form>
+
+     <p className="mt-4 text-center">
+       Already have an account?{" "}
+       <span className="text-blue-500 font-bold underline cursor-pointer hover:text-blue-700" onClick={() => navigate("/login")}>
+         Login
+       </span>
+     </p>
+   </div>
   );
 };
 

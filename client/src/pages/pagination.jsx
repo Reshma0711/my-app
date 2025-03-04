@@ -22,7 +22,7 @@ const Pagination = () => {
  const {data,isLoading, error }=useQueryHook({
   endpoint: "pagination",
   querykey: ["product", page],
-  queryParams: { page, productPerPage: 3 }
+  queryParam: { page, productPerPage: 3 }
 })
 
   if (isLoading) return <p>Loading...</p>;

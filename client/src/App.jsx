@@ -7,6 +7,7 @@ import Pagination from "./pages/pagination";
 import Gallery from "./pages/Gallery";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
+import Form from "./practice/form";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/signUp"   element={<Signup/>}/>
         <Route path="/login"  element={<Login/>}/>
+       
       </Routes>
     </BrowserRouter>
   );

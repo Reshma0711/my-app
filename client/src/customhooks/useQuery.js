@@ -6,6 +6,9 @@ import { api } from "@/utils/axios";
 const fetchData = async (ep,qp) => {
   try {
     const queryString = new URLSearchParams(qp).toString();
+
+      console.log("queryyyyyyyyyyyyyyyyyyyyy",queryString)
+      
     const url = queryString ? `/${ep}?${queryString}` : `/${ep}`;
     const response = await api.get(url);
 
