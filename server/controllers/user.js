@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
@@ -26,13 +26,14 @@ exports.signUp = async (req, res) => {
     console.log(hashedPassword);
 
     await newUser.save();
-    return res.status(201).json({ message: "User registered successfully" });
+    return res.status(201).json({ message: "User registered successfully" ,
+    });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
 
-const secretKey = process.env.JWT_SECRET_KEY;
+const secretKey = process.env.JWT_SECRET_KEY
 
 exports.logIn = async (req, res) => {
   try {

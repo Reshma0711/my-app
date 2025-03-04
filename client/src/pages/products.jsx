@@ -16,6 +16,9 @@ const Products = () => {
     );
   }
 
+
+
+
   if (error) {
     return (
       <div className="text-center text-red-600 font-semibold p-6">
@@ -23,6 +26,8 @@ const Products = () => {
       </div>
     );
   }
+
+  console.log("checkkkkkkkk",products)
 
   return (
     <div className="p-6">

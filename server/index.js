@@ -8,6 +8,10 @@ dotenv.config();
 const cors=require("cors")
 const port = process.env.PORT;
 
+
+const userRouter=require("./routes/user")
+const productRouter=require("../server/routes/products")
+
 app.use(express.json());
 
 
@@ -42,6 +46,12 @@ app.use("/uploads", express.static("uploads"));
 //Without this, the browser cannot access images stored in the backend.
 
 app.get("/gallery", getData);
+
+
+
+app.use("/",userRouter)
+
+app.use("/",productRouter)
 
 app.listen(port, () => {
   console.log(`Server is running at ${port}`);

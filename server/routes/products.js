@@ -19,7 +19,9 @@ const { verifyRole } = require("../middlewares/rolemiddleware");
 //   getProducts
 // );
 
-router.get("/", getProducts);
+router.get("/products", getProducts);
+
+router.get("/pagination",productPagination)
 
 // router.post("/addProduct", addProduct);
 
@@ -38,18 +40,20 @@ router.get("/", getProducts);
 //   updateProduct
 // );
 // Delete a product (Only admin)
-router.delete("/:id", verifyToken, verifyRole(["admin"]), deleteProduct);
+
+
+// router.delete("/:id", verifyToken, verifyRole(["admin"]), deleteProduct);
 
 // Route to get a particular product by ID
-router.get(
-  "/:id",
-  verifyToken,
-  verifyRole(["admin", "manager", "user"]),
-  getProductById
-);
+// router.get(
+//   "/:id",
+//   verifyToken,
+//   verifyRole(["admin", "manager", "user"]),
+//   getProductById
+// );
 
-router.get("/productPagination", productPagination);
+// router.get("/productPagination", productPagination);
 
-router.put("/updateProducts", updateProducts);
+// router.put("/updateProducts", updateProducts);
 
 module.exports = router;
