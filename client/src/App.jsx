@@ -7,7 +7,7 @@ import Pagination from "./pages/pagination";
 import Gallery from "./pages/Gallery";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
-import Form from "./practice/form";
+// import Form from "./practice/form";
 
 function App() {
   return (

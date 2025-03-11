@@ -33,11 +33,14 @@ exports.signUp = async (req, res) => {
   }
 };
 
+
+
 const secretKey = process.env.JWT_SECRET_KEY
+
 
 exports.logIn = async (req, res) => {
   try {
-    const { email, password, role} = req.body;
+    const { email, password} = req.body;
 
     const user = await User.findOne({ email });
     if (!user)
