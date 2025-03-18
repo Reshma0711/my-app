@@ -43,9 +43,9 @@ const NavBar = () => {
             <Link to="/gallery" className="ml-4">
               Gallery
             </Link>
-            {/* <Link to="/form" className="ml-4">
-             Form
-            </Link> */}
+            <Link to="/infiniteScroll" className="ml-4">
+             Infinite-Scroll
+            </Link>
             <button
               onClick={handleLogout}
               className="ml-4 bg-red-500 px-3 py-1 rounded"

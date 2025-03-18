@@ -1,5 +1,7 @@
 const Product = require("../model/products");
 
+const Name=require("../model/scroll")
+
 const productPagination = async (req, res) => {
   try {
     const productPerPage = req.query.productPerPage
@@ -140,6 +142,53 @@ const getProductById = async (req, res) => {
 };
 
 
+const infiniteScroll = async (req, res) => {
+  try {
+    const limit= Math.max(parseInt(req.query.limit) || 5, 1);
+    const pageNumber = Math.max(parseInt(req.query.page) || 1, 1);
+
+    const skip = (pageNumber - 1) * limit;
+
+    // Fetch paginated products
+    const names = await Name.find()
+      .sort({ _id: 1 }) // Sort by _id in ascending order
+      .skip(skip)
+      .limit(limit);
+
+    const totalNames = await Name.countDocuments();
+    const totalPages = Math.ceil(totalNames / limit);
+    const hasMore = pageNumber < totalPages;
+
+    return res.status(200).json({
+      success: true,
+      names,
+      totalNames,
+      currentPage: pageNumber,
+      totalPages,
+      hasMore,
+      perPage: limit,
+    });
+  } catch (error) {
+    console.error("Error in productPagination:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
+
+const getNames = async (req, res) => {
+  try {
+    const names = await Name.find();
+    // console.log(names)
+    return res.status(201).json(names);
+    // console.log(products)
+  } catch (err) {
+    // console.error(err);
+    return res.status(500).send("Server Error");
+  }
+};
 
 
 module.exports = {
@@ -150,4 +199,6 @@ module.exports = {
   updateProduct,
   deleteProduct,
   getProductById,
+  infiniteScroll,
+  getNames
 };

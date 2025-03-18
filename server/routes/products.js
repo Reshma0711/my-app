@@ -7,6 +7,8 @@ const {
   updateProduct,
   deleteProduct,
   getProductById,
+  infiniteScroll,
+  getNames,
 } = require("../controllers/products");
 const router = express.Router();
 const { verifyToken } = require("../middlewares/authmiddleware");
@@ -22,6 +24,12 @@ const { verifyRole } = require("../middlewares/rolemiddleware");
 router.get("/products", getProducts);
 
 router.get("/pagination",productPagination)
+
+
+router.get("/scroll",infiniteScroll)
+
+
+router.get("/names",getNames)
 
 // router.post("/addProduct", addProduct);
 
