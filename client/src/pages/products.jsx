@@ -3,9 +3,13 @@ import ProductCard from "../practice/card";
 import useQueryHook from "@/customhooks/useQuery";
 
 const Products = () => {
-  const { data: products, isLoading, error } = useQueryHook({
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = useQueryHook({
     endpoint: "products",
-    querykey: ["products"]
+    querykey: ["products"],
   });
 
   if (isLoading) {
@@ -16,9 +20,6 @@ const Products = () => {
     );
   }
 
-
-
-
   if (error) {
     return (
       <div className="text-center text-red-600 font-semibold p-6">
@@ -27,7 +28,7 @@ const Products = () => {
     );
   }
 
-  console.log("checkkkkkkkk",products)
+  console.log("checkkkkkkkk", products);
 
   return (
     <div className="p-6">

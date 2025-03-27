@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
@@ -33,7 +33,6 @@ const Infinitescroll = () => {
     }
   }, [fetchNextPage, inView]);
 
-  // console.log("dataaaaaaaaaaaaaaaaaaa", isLoading, data);
   console.log("pageParamssssssssssssssssssssssss:", data?.pageParams);
 
   return (
@@ -41,11 +40,13 @@ const Infinitescroll = () => {
       {data?.pages?.map((page) =>
         page.names.map((name) => <div key={name._id}>{name.name}</div>)
       )}
+
       {/* {hasNextPage && (
         <Button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
           {isFetchingNextPage ? "Loading..." : "Load More"}
         </Button>
       )} */}
+      
    {(!hasNextPage) && (
   <p style={{ backgroundColor: "gray-700", padding: "10px", borderRadius: "5px" }}>
     No more products...
