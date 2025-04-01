@@ -1,8 +1,10 @@
-const secretKey = process.env.JWT_SECRET_KEY;
-const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const secretKey = process.env.JWT_SECRET_KEY;
+const jwt = require("jsonwebtoken");
+
+// console.log(secretKey)
 const verifyToken = async (req, res, next) => {
   const token = req.header("Authorization");
   console.log("Token...", token);
@@ -19,6 +21,4 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-
-module.exports={verifyToken}
-
+module.exports = { verifyToken };
