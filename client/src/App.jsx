@@ -8,6 +8,8 @@ import Gallery from "./pages/Gallery";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Infinitescroll from "./pages/infinitescroll";
+import Cart from "./pages/cart";
+import PaymentSuccess from "./pages/successpage";
 // import Form from "./practice/form";
 
 function App() {
@@ -20,10 +22,11 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/pagination" element={<Pagination />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/infinitescroll"  element={<Infinitescroll/>}/>
-        <Route path="/signUp"   element={<Signup/>}/>
-        <Route path="/login"  element={<Login/>}/>
-       
+        <Route path="/infinitescroll" element={<Infinitescroll />} />
+        <Route path="/cart" element={<Cart/>} />
+        <Route path="/success-page" element={<PaymentSuccess/>}/>
+        <Route path="/signUp" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

@@ -133,7 +133,7 @@ const Login = () => {
         <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
 
         {loginMutation.isError && (
-          <p className="text-red-500 text-center">{loginMutation.error.message}</p>
+          <p className="text-red-500 text-center">{loginMutation.error.response?.data?.message}</p>
         )}
 
         <form onSubmit={handleSubmit(onSubmit)}>
