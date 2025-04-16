@@ -49,6 +49,9 @@ const NavBar = () => {
             <Link to="/cart" className="ml-4">
              Cart
             </Link>
+            <Link to="/table" className="ml-4">
+       Table
+            </Link>
             <button
               onClick={handleLogout}
               className="ml-4 bg-red-500 px-3 py-1 rounded"
