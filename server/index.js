@@ -11,6 +11,8 @@ const port = process.env.PORT;
 const userRouter = require("./routes/user");
 const productRouter = require("../server/routes/products");
 const cartRouter = require("../server/routes/cart");
+const taskRouter=require("./routes/task")
+
 const { createOrder, verifyCapture } = require("./controllers/order");
 
 
@@ -52,6 +54,8 @@ app.use("/", userRouter);
 app.use("/", productRouter);
 
 app.use("/cart", cartRouter);
+
+app.use("/",taskRouter)
 
 app.post("/create-order",verifyToken, createOrder);
 

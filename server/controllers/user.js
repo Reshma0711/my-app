@@ -26,21 +26,17 @@ exports.signUp = async (req, res) => {
     console.log(hashedPassword);
 
     await newUser.save();
-    return res.status(201).json({ message: "User registered successfully" ,
-    });
+    return res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
 
-
-
-const secretKey = process.env.JWT_SECRET_KEY
-
+const secretKey = process.env.JWT_SECRET_KEY;
 
 exports.logIn = async (req, res) => {
   try {
-    const { email, password} = req.body;
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email });
     if (!user)
@@ -51,7 +47,7 @@ exports.logIn = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
 
     const token = jwt.sign(
-      { id:user.id,useremail: user.email, userrole: user.role },
+      { id: user.id, useremail: user.email, userrole: user.role },
       secretKey,
       { expiresIn: "1h" }
     );
@@ -72,6 +68,3 @@ exports.accessPage = async (req, res) => {
 // }
 
 // module.exports = { signUp, accessPage };
-
-
-

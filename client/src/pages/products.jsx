@@ -31,16 +31,31 @@ const Products = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
+  
+      const productid = product._id;
+      if (!productid || typeof productid !== "string" || productid.length !== 24) {
+        console.error("Invalid product ID:", productid);
+        return;
+      }
+  
+      console.log("Adding to cart:", productid);
+  
       await axios.post(
         "http://localhost:5000/cart/add",
-        { productid: product._id, quantity: 1 },
+        { productid, quantity: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setCartItems([...cartItems, { productId: product._id, quantity: 1 }]);
+  
+      setCartItems([...cartItems, { productid, quantity: 1 }]);
     } catch (err) {
-      console.error("Error adding to cart:", err);
+      if (err.response) {
+        console.error("Add to cart failed:", err.response.data);
+      } else {
+        console.error("Error adding to cart:", err.message);
+      }
     }
   };
+  
 
   const updateQuantity = async (productId, action) => {
     try {
